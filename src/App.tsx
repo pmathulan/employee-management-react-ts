@@ -1,35 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Layout, Button } from "antd";
+import EmployeesList from "./pages/EmployeeListPage";
 
-function App() {
-  const [count, setCount] = useState(0)
+// Ant Design Layout components to structure the UI
+const { Header, Content } = Layout;
 
+const App: React.FC = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <Router>
+      <Layout>
+        <Header style={{ padding: "0 20px" }}>
+          <div className="logo" style={{ color: "#fff", fontSize: "20px" }}>
+            Employee Management System
+          </div>
+        </Header>
+        <Content
+          style={{
+            padding: "20px",
+            minHeight: "80vh",
+            backgroundColor: "#f0f2f5",
+          }}
+        >
+          {/* Button to navigate to Add Employee Page */}
+          <Button type="primary" href="/add-employee" style={{ marginBottom: "20px" }}>
+            Add Employee
+          </Button>
 
-export default App
+          {/* Routing to respective pages for Employee List and Add Employee */}
+          <Routes>
+            <Route path="/" element={<EmployeesList />} />
+            {/* <Route path="/add-employee" element={<AddEmployee />} /> */}
+          </Routes>
+        </Content>
+      </Layout>
+    </Router>
+  );
+};
+
+export default App;
